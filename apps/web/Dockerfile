@@ -10,7 +10,6 @@ COPY pnpm-lock.yaml pnpm-workspace.yaml package.json ./
 
 # Copy only what's needed to install deps for the workspace
 COPY apps/web/package.json apps/web/package.json
-COPY packages ./packages
 
 RUN pnpm install --frozen-lockfile
 
