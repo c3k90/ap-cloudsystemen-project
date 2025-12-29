@@ -43,7 +43,7 @@ jobs:
           username: ${{ secrets.AZURE_USER }}
           key: ${{ secrets.AZURE_SSH_KEY }}
           source: ".deploy/compose.yml"
-          target: "/opt/app"
+          target: "/home/${{ secrets.AZURE_USER }}/app"
 
       - name: Deploy on server
         uses: appleboy/ssh-action@v1.2.0
@@ -54,7 +54,8 @@ jobs:
           script: |
             set -e
 
-            cd /opt/app
+            mkdir -p /home/${{ secrets.AZURE_USER }}/app
+            cd /home/${{ secrets.AZURE_USER }}/app
 
             # Write/update .env for compose (Traefik + image vars)
             cat > .env << 'EOF'
