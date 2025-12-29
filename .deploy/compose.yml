@@ -20,13 +20,12 @@ services:
     restart: unless-stopped
 
   web:
-    image: ghcr.io/${GITHUB_OWNER}/${IMAGE_NAME}:latest
-    restart: unless-
+    image: ghcr.io/${OWNER}/${IMAGE_NAME}:latest
+    restart: unless-stopped
     env_file:
       - ./.env
     environment:
       - NODE_ENV=production
-      # zet hier je app env vars
     labels:
       - traefik.enable=true
       - traefik.http.routers.web.rule=Host(`${DOMAIN}`)
