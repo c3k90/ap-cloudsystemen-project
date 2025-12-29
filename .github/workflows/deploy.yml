@@ -44,6 +44,7 @@ jobs:
           key: ${{ secrets.AZURE_SSH_KEY }}
           source: ".deploy/compose.yml"
           target: "/home/${{ secrets.AZURE_USER }}/app"
+          strip_components: 1 # drop the leading .deploy folder so compose.yml lands in target root
 
       - name: Deploy on server
         uses: appleboy/ssh-action@v1.2.0
