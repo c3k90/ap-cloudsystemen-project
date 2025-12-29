@@ -21,6 +21,9 @@ RUN corepack enable
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
+# Re-apply node_modules after copying source so they are not overwritten by the context
+COPY --from=deps /app/node_modules ./node_modules
+
 # Build only the web app
 RUN pnpm --filter web build
 
