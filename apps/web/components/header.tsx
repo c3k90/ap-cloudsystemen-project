@@ -1,5 +1,5 @@
 import { ThemeToggle, cn, buttonVariants } from "@repo/ui";
-import { Github } from "lucide-react";
+import { Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -28,10 +28,10 @@ export function Header() {
                         href="https://github.com/c3k90/ap-cloudsystemen-project"
                         target="_blank"
                         rel="noopener noreferrer"
-                        aria-label="GitHub Profile"
-                        className={cn(buttonVariants({ variant: "ghost", size: "icon" }))}
+                        className={cn(buttonVariants({ variant: "outline", size: "sm" }), "gap-2")}
                     >
-                        <Github className="h-[1.2rem] w-[1.2rem]" />
+                        <Star className="h-4 w-4" />
+                        <span>Star on GitHub</span>
                     </Link>
                 </div>
             </div>
