@@ -373,7 +373,7 @@ export default function OrbitDefense({ onBack, themeColor }: OrbitDefenseProps) 
             target = enemy
           }
         })
-        if (target) {
+        if (target !== null) {
           satellite.lastFired = currentTime
           const bulletSpeed = satellite.type === "missile" ? 6 : 12
           bullets.push({
