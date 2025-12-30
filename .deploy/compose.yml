@@ -2,7 +2,7 @@ services:
   traefik:
     image: traefik:v3.1
     environment:
-      - DOCKER_API_VERSION=1.44 # ensure Traefik talks to modern Docker API
+      - DOCKER_API_VERSION=1.52
     command:
       - --api.dashboard=false
       - --providers.docker=true
