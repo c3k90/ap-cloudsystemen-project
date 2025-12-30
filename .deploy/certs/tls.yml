@@ -1,0 +1,9 @@
+# Cloudflare Origin certificate paths (place your cert/key files in this folder on the server)
+# Expecting files named exactly as below:
+#   - cloudflare-origin.pem  (certificate)
+#   - cloudflare-origin.key  (private key)
+
+tls:
+  certificates:
+    - certFile: /certs/cloudflare-origin.pem
+      keyFile: /certs/cloudflare-origin.key

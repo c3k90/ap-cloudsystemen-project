@@ -36,13 +36,13 @@ jobs:
           tags: |
             ghcr.io/${{ secrets.OWNER }}/${{ secrets.IMAGE_NAME }}:latest
 
-      - name: Copy compose to server
+      - name: Copy deploy manifests to server
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.AZURE_HOST }}
           username: ${{ secrets.AZURE_USER }}
           key: ${{ secrets.AZURE_SSH_KEY }}
-          source: ".deploy/compose.yml"
+          source: ".deploy/compose.yml,.deploy/certs/tls.yml"
           target: "/home/${{ secrets.AZURE_USER }}/app"
           strip_components: 1 # drop the leading .deploy folder so compose.yml lands in target root
 
@@ -63,7 +63,6 @@ jobs:
             OWNER=${{ secrets.OWNER }}
             IMAGE_NAME=${{ secrets.IMAGE_NAME }}
             DOMAIN=${{ secrets.DOMAIN }}
-            LE_EMAIL=${{ secrets.LE_EMAIL }}
             EOF
 
             # Login to GHCR so the VM can docker pull

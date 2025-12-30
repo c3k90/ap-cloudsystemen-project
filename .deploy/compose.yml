@@ -5,18 +5,17 @@ services:
       - --api.dashboard=false
       - --providers.docker=true
       - --providers.docker.exposedbydefault=false
+      - --providers.file.filename=/certs/tls.yml
       - --entrypoints.web.address=:80
+      - --entrypoints.web.http.redirections.entrypoint.to=websecure
+      - --entrypoints.web.http.redirections.entrypoint.scheme=https
       - --entrypoints.websecure.address=:443
-      - --certificatesresolvers.le.acme.email=${LE_EMAIL}
-      - --certificatesresolvers.le.acme.storage=/letsencrypt/acme.json
-      - --certificatesresolvers.le.acme.httpchallenge=true
-      - --certificatesresolvers.le.acme.httpchallenge.entrypoint=web
     ports:
       - "80:80"
       - "443:443"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - letsencrypt:/letsencrypt
+      - ./certs:/certs:ro
     restart: unless-stopped
 
   web:
@@ -30,8 +29,5 @@ services:
       - traefik.enable=true
       - traefik.http.routers.web.rule=Host(`${DOMAIN}`)
       - traefik.http.routers.web.entrypoints=websecure
-      - traefik.http.routers.web.tls.certresolver=le
+      - traefik.http.routers.web.tls=true
       - traefik.http.services.web.loadbalancer.server.port=3000
-
-volumes:
-  letsencrypt:
