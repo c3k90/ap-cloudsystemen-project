@@ -341,7 +341,7 @@ export default function OrbitDefense({ onBack, themeColor }: OrbitDefenseProps) 
         gameStateRef.current.enemiesToSpawn--
         gameStateRef.current.lastEnemySpawn = currentTime
       }
-      if (gameStateRef.current.enemiesToSpawn === 0 && enemies.length === 0) {
+      if (gameStateRef.current.enemiesToSpawn === 0 && gameStateRef.current.enemies.length === 0) {
         gameStateRef.current.waveInProgress = false
         setTimeout(() => {
           gameStateRef.current.credits += 100 + gameStateRef.current.wave * 10
@@ -366,7 +366,7 @@ export default function OrbitDefense({ onBack, themeColor }: OrbitDefenseProps) 
       if (currentTime - satellite.lastFired > satellite.fireRate) {
         let target: Enemy | null = null
         let minDistance = satellite.range
-        enemies.forEach((enemy) => {
+        gameStateRef.current.enemies.forEach((enemy) => {
           const distance = Math.sqrt((enemy.x - satellite.x) ** 2 + (enemy.y - satellite.y) ** 2)
           if (distance < minDistance) {
             minDistance = distance
@@ -374,19 +374,20 @@ export default function OrbitDefense({ onBack, themeColor }: OrbitDefenseProps) 
           }
         })
         if (target !== null) {
+          const t = target as Enemy
           satellite.lastFired = currentTime
           const bulletSpeed = satellite.type === "missile" ? 6 : 12
           bullets.push({
             x: satellite.x,
             y: satellite.y,
-            targetX: target.x,
-            targetY: target.y,
+            targetX: t.x,
+            targetY: t.y,
             radius: BULLET_RADIUS + (satellite.type === "missile" ? 2 : 0),
             damage: satellite.damage,
             speed: bulletSpeed,
             life: 100,
             type: satellite.type,
-            targetEnemyId: target.id,
+            targetEnemyId: t.id,
             trail: [],
           })
         }
