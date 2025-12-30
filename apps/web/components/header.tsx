@@ -25,7 +25,7 @@ export function Header() {
                 <div className="flex items-center gap-2">
                     <ThemeToggle />
                     <Link
-                        href="https://github.com/c3k90"
+                        href="https://github.com/c3k90/ap-cloudsystemen-project"
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label="GitHub Profile"
